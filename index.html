@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InvAD | CVPR 2026</title>
+    <meta
+      name="description"
+      content="InvAD: Inversion-based Reconstruction-Free Anomaly Detection with Diffusion Models. Accepted at CVPR 2026."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css?v=20260227k" />
+  </head>
+  <body>
+    <div class="ambient-gradient" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top">InvAD</a>
+      <nav class="top-nav">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#ablation">Ablation</a>
+        <a href="#localization">Localization</a>
+        <a href="#generalization">Generalization</a>
+        <a href="#contact">Contact</a>
+        <a href="#authors">Authors</a>
+        <a href="#citation">Citation</a>
+      </nav>
+      <a
+        class="header-link link-icon"
+        href="https://github.com/SkyShunsuke/InversionAD"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg class="icon-github" viewBox="0 0 16 16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.07c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+        GitHub
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero reveal">
+        <div class="hero-copy">
+          <p class="venue">Accepted at CVPR 2026 Main Conference</p>
+          <h1>
+            InvAD: Inversion-based Reconstruction-Free
+            <span>Anomaly Detection with Diffusion Models</span>
+          </h1>
+          <p class="lead">
+            A reconstruction-free anomaly detection paradigm that performs
+            detection via noising in latent space, achieving state-of-the-art
+            accuracy with about <strong>2x faster inference</strong> without
+            diffusion distillation.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary link-icon"
+              href="https://github.com/SkyShunsuke/InversionAD"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg class="icon-github" viewBox="0 0 16 16" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.07c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                ></path>
+              </svg>
+              GitHub Code
+            </a>
+            <a
+              class="btn btn-secondary"
+              href="https://arxiv.org/abs/2504.05662"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📄 Paper
+            </a>
+          </div>
+          <div class="metric-strip">
+            <article>
+              <p class="metric-value">99.0</p>
+              <p class="metric-label">Image AU-ROC on MVTecAD</p>
+            </article>
+            <article>
+              <p class="metric-value">120 FPS</p>
+              <p class="metric-label">Inference speed on MPDD</p>
+            </article>
+            <article>
+              <p class="metric-value">S = 3</p>
+              <p class="metric-label">Only 3 inversion steps</p>
+            </article>
+          </div>
+        </div>
+        <figure class="hero-figure">
+          <img
+            src="/assets/figs/overview_2_hd.png?v=20260227k"
+            data-fallback-src="/assets/figs/overview_2.png?v=20260227k"
+            onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+            alt="InvAD overview in latent PF-ODE trajectory"
+          />
+          <figcaption>
+            InvAD reformulates AD from denoising-based reconstruction to direct
+            latent inversion.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="abstract" class="content-section reveal">
+        <h2>Abstract</h2>
+        <p>
+          Despite the remarkable success, recent reconstruction-based anomaly
+          detection (AD) methods via diffusion modeling still involve
+          fine-grained noise-strength tuning and computationally expensive
+          multi-step denoising, leading to a fundamental tension between
+          fidelity and efficiency. In this paper, we propose <strong>InvAD</strong>,
+          a novel inversion-based anomaly detection approach, detection via
+          noising in latent space, which circumvents explicit reconstruction.
+          We directly infer the final latent variable with DDIM inversion and
+          measure deviation against the known prior for anomaly scoring. With
+          only a few inversion steps and adaptive learned noising, InvAD
+          preserves high detection performance while significantly reducing
+          inference cost.
+        </p>
+        <div class="contrib-grid">
+          <article>
+            <h3>Reconstruction-Free AD</h3>
+            <p>
+              Avoids the conventional
+              <em>detection via denoising in RGB space</em> pipeline.
+            </p>
+          </article>
+          <article>
+            <h3>Latent DDIM Inversion</h3>
+            <p>
+              Infers final latent state directly with partial inversion for fast
+              and stable inference.
+            </p>
+          </article>
+          <article>
+            <h3>Robust Scoring</h3>
+            <p>
+              Uses prior typicality and spatial norm differences to reduce
+              reverse-scoring issues.
+            </p>
+          </article>
+          <article>
+            <h3>Unified Evaluation</h3>
+            <p>
+              Strong performance on industrial and medical benchmarks under one
+              unsupervised setting.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="method" class="content-section reveal">
+        <div class="section-head">
+          <h2>Method</h2>
+          <p>
+            InvAD maps test images toward the noise prior and scores anomalies
+            from latent deviation, instead of pixel reconstruction error.
+          </p>
+        </div>
+        <div class="switch-row" role="tablist" aria-label="Method visualization">
+          <button class="switch-btn is-active" data-figure="overview_1">
+            Reconstruction-based
+          </button>
+          <button class="switch-btn" data-figure="overview_2">
+            Reconstruction-free (Ours)
+          </button>
+        </div>
+        <figure class="method-figure">
+          <img
+            id="methodFigure"
+            src="/assets/figs/overview_1_hd.png?v=20260227k"
+            data-fallback-src="/assets/figs/overview_1.png?v=20260227k"
+            onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+            alt="InvAD methodology in diffusion trajectory"
+          />
+          <figcaption id="methodCaption">
+            Comparison of normal vs anomalous trajectories under DDPM-style
+            noising dynamics.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="results" class="content-section reveal">
+        <div class="section-head">
+          <h2>Results</h2>
+          <p>
+            InvAD achieves a strong speed-accuracy frontier across major
+            benchmarks.
+          </p>
+        </div>
+        <div class="benchmark-switch" role="tablist" aria-label="Benchmark switch">
+          <button class="benchmark-btn is-active" data-benchmark="mvtec">
+            MVTecAD
+          </button>
+          <button class="benchmark-btn" data-benchmark="visa">VisA</button>
+          <button class="benchmark-btn" data-benchmark="mpdd">MPDD</button>
+          <button class="benchmark-btn" data-benchmark="bmad">BMAD</button>
+          <button class="benchmark-btn" data-benchmark="realiad">
+            Real-IAD
+          </button>
+        </div>
+        <div class="chart-grid">
+          <figure class="chart-card">
+            <h3 id="barChartTitle">Method Comparison (MVTecAD, Det. AU-ROC)</h3>
+            <svg
+              id="barComparisonChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Bar chart comparing image-level AU-ROC across methods"
+            ></svg>
+            <figcaption>
+              InvAD reaches the highest image-level AU-ROC among compared methods.
+            </figcaption>
+          </figure>
+          <figure class="chart-card">
+            <h3 id="scatterChartTitle">Speed-Accuracy Trade-off (MVTecAD)</h3>
+            <svg
+              id="speedScatterChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Scatter chart for speed and accuracy trade-off"
+            ></svg>
+            <figcaption>
+              Re-generated speed-accuracy frontier using website-native visual
+              style and consistent color palette.
+            </figcaption>
+          </figure>
+          <figure class="chart-card span-two">
+            <h3>Speed-Accuracy vs Conventional Diffusion-AD Methods</h3>
+            <svg
+              id="conventionalSpeedScatterChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Scatter chart for speed and accuracy comparison with conventional diffusion AD methods"
+            ></svg>
+            <figcaption>
+              Comparison against conventional diffusion-AD methods with InvAD
+              highlighted as the best practical speed-accuracy trade-off point.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="ablation" class="content-section reveal">
+        <div class="section-head">
+          <h2>Ablation</h2>
+          <p>
+            Additional ablation results in the same visual format to support
+            design choices of InvAD.
+          </p>
+        </div>
+        <div class="chart-grid">
+          <figure class="chart-card">
+            <h3>Diffusion Architecture Ablation (MVTecAD)</h3>
+            <svg
+              id="diffusionArchAblationChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Bar chart for diffusion architecture ablation"
+            ></svg>
+            <figcaption>
+              Architecture ablation under the same InvAD framework across MLP,
+              UNet, DiT-base, and DiT-gigant backbones.
+            </figcaption>
+          </figure>
+          <figure class="chart-card">
+            <h3>Scoring Scheme Ablation (MVTecAD, AU-ROC)</h3>
+            <svg
+              id="scoringAblationChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Line chart for scoring ablation under different inversion steps"
+            ></svg>
+            <figcaption>
+              Combined NLL + Diff scoring remains most robust across diffusion
+              step settings.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="ablation-note">
+          <p>
+            Our framework consists of two core components: feature space
+            diffusion modeling (FDM) and inversion-based inference. To validate
+            each contribution, we compare four settings (A1-A4) on multi-class
+            MVTecAD.
+          </p>
+          <table class="metric-table" aria-label="Ablation setting definitions">
+            <thead>
+              <tr>
+                <th>Setting</th>
+                <th>FDM</th>
+                <th>Single-step Inv.</th>
+                <th>Multi-step Inv.</th>
+                <th>mAD</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A1</td>
+                <td>✓</td>
+                <td>-</td>
+                <td>-</td>
+                <td>57.3</td>
+              </tr>
+              <tr>
+                <td>A2</td>
+                <td>-</td>
+                <td>✓</td>
+                <td>-</td>
+                <td>44.9</td>
+              </tr>
+              <tr>
+                <td>A3</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>-</td>
+                <td>71.0</td>
+              </tr>
+              <tr class="ours-row">
+                <td>A4 (Ours)</td>
+                <td>✓</td>
+                <td>-</td>
+                <td>✓</td>
+                <td>83.7</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            A1 (without inversion) drops clearly versus A4, highlighting the
+            importance of inversion. A2 (without FDM, i.e., pixel-space
+            diffusion) with single-step inversion further degrades accuracy.
+            Combining FDM and single-step inversion (A3) improves performance,
+            and replacing it with multi-step inversion (A4) yields the best
+            result.
+          </p>
+        </div>
+      </section>
+
+      <section id="localization" class="content-section reveal">
+        <div class="section-head">
+          <h2>Localization Results</h2>
+          <p>
+            Qualitative pixel-level anomaly localization comparison on MVTecAD
+            between InvAD and prior diffusion-based baselines.
+          </p>
+        </div>
+        <figure class="localization-figure">
+          <img
+            src="/assets/figs/fafa-2_hd.png?v=20260227k"
+            data-fallback-src="/assets/figs/fafa-2.png?v=20260227k"
+            onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+            alt="Qualitative localization results comparing InvAD and other methods"
+          />
+          <figcaption>
+            InvAD yields sharper anomaly regions and fewer false positives in
+            challenging defect localization scenarios.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="generalization" class="content-section reveal">
+        <div class="section-head">
+          <h2>Plug-and-Play Generalization</h2>
+          <p>
+            InvAD can be inserted into other diffusion-based AD pipelines at
+            inference time and consistently improves both accuracy and speed.
+          </p>
+        </div>
+        <div class="chart-grid">
+          <figure class="chart-card span-two">
+            <h3>Generalizability on MVTecAD (Det./Loc./FPS)</h3>
+            <svg
+              id="generalizationChart"
+              class="result-chart"
+              viewBox="0 0 860 420"
+              role="img"
+              aria-label="Generalization chart with baseline and InvAD-augmented methods"
+            ></svg>
+            <figcaption>
+              InvAD delivers clear gains when integrated into DiAD and MDM,
+              including dramatic FPS acceleration.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="contact" class="content-section reveal">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>
+            For questions about the paper, experiments, or code, please contact
+            the first author directly.
+          </p>
+        </div>
+        <article class="contact-card">
+          <h3>Shunsuke Sakai</h3>
+          <p>University of Fukui</p>
+          <p>
+            Email:
+            <a href="mailto:sshunsuke0102@gmail.com">sshunsuke0102@gmail.com</a>
+          </p>
+        </article>
+      </section>
+
+      <section id="authors" class="content-section reveal">
+        <h2>Authors</h2>
+        <div class="author-grid">
+          <article>
+            <h3>Shunsuke Sakai</h3>
+            <p>University of Fukui</p>
+            <a
+              href="https://scholar.google.com/citations?user=mSDQkjMAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🎓 Google Scholar
+            </a>
+          </article>
+          <article>
+            <h3>Xiangteng He</h3>
+            <p>The University of British Columbia</p>
+            <a
+              href="https://hexiangteng.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🏠 Homepage
+            </a>
+          </article>
+          <article>
+            <h3>Chunzhi Gu*</h3>
+            <p>University of Fukui</p>
+            <a
+              href="https://sites.google.com/view/gczjp/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🏠 Homepage
+            </a>
+          </article>
+          <article>
+            <h3>Leonid Sigal</h3>
+            <p>The University of British Columbia</p>
+            <a
+              href="https://www.cs.ubc.ca/~lsigal/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🏠 Homepage
+            </a>
+          </article>
+          <article>
+            <h3>Tatsuhito Hasegawa*</h3>
+            <p>University of Fukui</p>
+            <a
+              href="https://scholar.google.com/citations?user=IQBU8IQAAAAJ&hl=ja"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🎓 Google Scholar
+            </a>
+          </article>
+        </div>
+        <p class="note">* Corresponding Authors</p>
+      </section>
+
+      <section id="citation" class="content-section reveal">
+        <h2>Citation</h2>
+        <p>If you find this work useful, please cite:</p>
+        <pre id="citationText"><code>@inproceedings{sakai2026invad,
+  title={InvAD: Inversion-based Reconstruction-Free Anomaly Detection with Diffusion Models},
+  author={Sakai, Shunsuke and He, Xiangteng and Gu, Chunzhi and Sigal, Leonid and Hasegawa, Tatsuhito},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year={2026}
+}</code></pre>
+        <button id="copyCitation" class="btn btn-secondary" type="button">
+          Copy BibTeX
+        </button>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        InvAD Project Page • <span id="currentYear"></span> •
+        <a
+          class="link-icon"
+          href="https://github.com/SkyShunsuke/InversionAD"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="icon-github" viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 4.07c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            ></path>
+          </svg>
+          GitHub Repository
+        </a>
+      </p>
+    </footer>
+
+    <script src="/script.js?v=20260227k"></script>
+  </body>
+</html>

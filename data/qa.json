@@ -1,0 +1,18 @@
+{
+  "threads": [
+    {
+      "id": "ce6d4f31-3002-4063-8558-3bfdb10fdaf7",
+      "name": "Anonymous",
+      "question": "Why Inversion is effective?",
+      "createdAt": "2026-02-27T09:09:00.536Z",
+      "answers": [
+        {
+          "id": "d2b763dd-14af-4a2c-959d-5072f503c76d",
+          "author": "InvAD Author",
+          "text": "thanks!",
+          "createdAt": "2026-02-27T09:09:17.170Z"
+        }
+      ]
+    }
+  ]
+}
