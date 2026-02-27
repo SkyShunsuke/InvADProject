@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.css?v=20260227k" />
+    <link rel="stylesheet" href="/styles.css?v=20260227m" />
   </head>
   <body>
     <div class="ambient-gradient" aria-hidden="true"></div>
@@ -22,11 +22,9 @@
       <a class="brand" href="#top">InvAD</a>
       <nav class="top-nav">
         <a href="#abstract">Abstract</a>
+        <a href="#intro">Intro</a>
         <a href="#method">Method</a>
-        <a href="#results">Results</a>
-        <a href="#ablation">Ablation</a>
-        <a href="#localization">Localization</a>
-        <a href="#generalization">Generalization</a>
+        <a href="#experiments">Experimental Results</a>
         <a href="#contact">Contact</a>
         <a href="#authors">Authors</a>
         <a href="#citation">Citation</a>
@@ -57,7 +55,7 @@
           </h1>
           <p class="lead">
             A reconstruction-free anomaly detection paradigm that performs
-            detection via noising in latent space, achieving state-of-the-art
+            detection via noising in latent space, achieving SoTA
             accuracy with about <strong>2x faster inference</strong> without
             diffusion distillation.
           </p>
@@ -102,8 +100,8 @@
         </div>
         <figure class="hero-figure">
           <img
-            src="/assets/figs/overview_2_hd.png?v=20260227k"
-            data-fallback-src="/assets/figs/overview_2.png?v=20260227k"
+            src="/assets/figs/overview_2_hd.png?v=20260227m"
+            data-fallback-src="/assets/figs/overview_2.png?v=20260227m"
             onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
             alt="InvAD overview in latent PF-ODE trajectory"
           />
@@ -162,12 +160,164 @@
         </div>
       </section>
 
+      <section id="intro" class="content-section reveal">
+        <div class="section-head">
+          <h2>Introduction</h2>
+          <p>
+            Unsupervised anomaly detection with diffusion models is effective,
+            but balancing detection accuracy and inference speed remains a core
+            challenge.
+          </p>
+        </div>
+        <div class="intro-layout">
+          <article class="intro-card">
+            <p>
+              Image anomaly detection (AD) is important in industrial quality
+              inspection and medical screening, where anomalous samples are
+              often rare. This motivates <strong>normal-only</strong>
+              unsupervised AD training.
+            </p>
+            <p>
+              Most diffusion-based AD methods follow
+              <em>detection via denoising in RGB space</em> using
+              reconstruction error, but this commonly suffers from:
+            </p>
+            <ul class="intro-list">
+              <li>
+                <strong>Noise-strength sensitivity:</strong> step/timestep
+                settings strongly affect false positives and missed anomalies.
+              </li>
+              <li>
+                <strong>High inference cost:</strong> multi-step denoising
+                causes low FPS in practical deployment.
+              </li>
+            </ul>
+            <p>
+              InvAD introduces
+              <em>detection via noising in latent space</em>, directly infers
+              terminal latent variables by inversion, and scores anomaly
+              typicality against the prior. This removes explicit
+              reconstruction while improving speed-accuracy trade-off.
+            </p>
+          </article>
+          <figure class="intro-figure">
+            <img
+              src="/assets/figs/invad_scatter.png?v=20260227m"
+              alt="Accuracy versus speed relationship of diffusion-based anomaly detection methods"
+            />
+            <figcaption>
+              Accuracy vs speed on MVTecAD: InvAD reaches a stronger practical
+              frontier with high AU-ROC and high FPS.
+            </figcaption>
+          </figure>
+        </div>
+        <article class="intro-card intro-table-card">
+          <h3>Diffusion-AD Property Comparison (Concise)</h3>
+          <div class="intro-table-wrap">
+            <table
+              class="metric-table intro-table"
+              aria-label="Comparison of diffusion-based anomaly detection method properties"
+            >
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Normal-only</th>
+                  <th>NFE</th>
+                  <th>FPS</th>
+                  <th>TS Tuning-free</th>
+                  <th>Multi-class</th>
+                  <th>Scoring</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DiffAD (ICCV 2023)</td>
+                  <td>Yes</td>
+                  <td>N/A</td>
+                  <td>N/A</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>Mask prediction</td>
+                </tr>
+                <tr>
+                  <td>DiAD (AAAI 2024)</td>
+                  <td>No</td>
+                  <td>10</td>
+                  <td>1.5</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                  <td>Feature MSE</td>
+                </tr>
+                <tr>
+                  <td>GLAD (ECCV 2024)</td>
+                  <td>Yes</td>
+                  <td>750</td>
+                  <td>0.2</td>
+                  <td>Yes</td>
+                  <td>No</td>
+                  <td>Feature MSE</td>
+                </tr>
+                <tr>
+                  <td>TransFusion (ECCV 2024)</td>
+                  <td>Yes</td>
+                  <td>20</td>
+                  <td>1.6</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>Mask prediction</td>
+                </tr>
+                <tr>
+                  <td>MDM (ICML 2025)</td>
+                  <td>Yes</td>
+                  <td>40</td>
+                  <td>1.9</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>Feature MSE</td>
+                </tr>
+                <tr>
+                  <td>OmiAD (ICML 2025)</td>
+                  <td>Yes</td>
+                  <td>1</td>
+                  <td>39.4</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Feature MSE</td>
+                </tr>
+                <tr>
+                  <td>DeCo-Diff (CVPR 2025)</td>
+                  <td>Yes</td>
+                  <td>10</td>
+                  <td>17.0</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Feature MSE</td>
+                </tr>
+                <tr class="ours-row">
+                  <td>InvAD (Ours)</td>
+                  <td>Yes</td>
+                  <td>3</td>
+                  <td>88.1</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                  <td>Prior likelihood</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="intro-note">
+            InvAD combines normal-only training, timestep robustness, and
+            strong multi-class performance with substantially faster inference.
+          </p>
+        </article>
+      </section>
+
       <section id="method" class="content-section reveal">
         <div class="section-head">
           <h2>Method</h2>
           <p>
             InvAD maps test images toward the noise prior and scores anomalies
-            from latent deviation, instead of pixel reconstruction error.
+            from latent deviation, instead of reconstruction error.
           </p>
         </div>
         <div class="switch-row" role="tablist" aria-label="Method visualization">
@@ -181,8 +331,8 @@
         <figure class="method-figure">
           <img
             id="methodFigure"
-            src="/assets/figs/overview_1_hd.png?v=20260227k"
-            data-fallback-src="/assets/figs/overview_1.png?v=20260227k"
+            src="/assets/figs/overview_1_hd.png?v=20260227m"
+            data-fallback-src="/assets/figs/overview_1.png?v=20260227m"
             onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
             alt="InvAD methodology in diffusion trajectory"
           />
@@ -193,212 +343,223 @@
         </figure>
       </section>
 
-      <section id="results" class="content-section reveal">
+      <section id="experiments" class="content-section reveal">
         <div class="section-head">
-          <h2>Results</h2>
+          <h2>Experimental Results</h2>
           <p>
-            InvAD achieves a strong speed-accuracy frontier across major
-            benchmarks.
+            Comprehensive evaluation including performance, ablation,
+            localization, and plug-and-play generalization.
           </p>
         </div>
-        <div class="benchmark-switch" role="tablist" aria-label="Benchmark switch">
-          <button class="benchmark-btn is-active" data-benchmark="mvtec">
-            MVTecAD
-          </button>
-          <button class="benchmark-btn" data-benchmark="visa">VisA</button>
-          <button class="benchmark-btn" data-benchmark="mpdd">MPDD</button>
-          <button class="benchmark-btn" data-benchmark="bmad">BMAD</button>
-          <button class="benchmark-btn" data-benchmark="realiad">
-            Real-IAD
-          </button>
+        <div id="performance" class="experiment-block">
+          <div class="section-head">
+            <h3>Performance</h3>
+            <p>
+              InvAD achieves a strong speed-accuracy frontier across major
+              benchmarks.
+            </p>
+          </div>
+          <div
+            class="benchmark-switch"
+            role="tablist"
+            aria-label="Benchmark switch"
+          >
+            <button class="benchmark-btn is-active" data-benchmark="mvtec">
+              MVTecAD
+            </button>
+            <button class="benchmark-btn" data-benchmark="visa">VisA</button>
+            <button class="benchmark-btn" data-benchmark="mpdd">MPDD</button>
+            <button class="benchmark-btn" data-benchmark="bmad">BMAD</button>
+            <button class="benchmark-btn" data-benchmark="realiad">
+              Real-IAD
+            </button>
+          </div>
+          <div class="chart-grid">
+            <figure class="chart-card">
+              <h3 id="barChartTitle">Method Comparison (MVTecAD, Det. AU-ROC)</h3>
+              <svg
+                id="barComparisonChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Bar chart comparing image-level AU-ROC across methods"
+              ></svg>
+              <figcaption>
+                InvAD reaches the highest image-level AU-ROC among compared
+                methods.
+              </figcaption>
+            </figure>
+            <figure class="chart-card">
+              <h3 id="scatterChartTitle">Speed-Accuracy Trade-off (MVTecAD)</h3>
+              <svg
+                id="speedScatterChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Scatter chart for speed and accuracy trade-off"
+              ></svg>
+              <figcaption>
+                Re-generated speed-accuracy frontier using website-native visual
+                style and consistent color palette.
+              </figcaption>
+            </figure>
+            <figure class="chart-card span-two">
+              <h3>Speed-Accuracy vs Conventional Diffusion-AD Methods</h3>
+              <svg
+                id="conventionalSpeedScatterChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Scatter chart for speed and accuracy comparison with conventional diffusion AD methods"
+              ></svg>
+              <figcaption>
+                Comparison against conventional diffusion-AD methods with InvAD
+                highlighted as the best practical speed-accuracy trade-off
+                point.
+              </figcaption>
+            </figure>
+          </div>
         </div>
-        <div class="chart-grid">
-          <figure class="chart-card">
-            <h3 id="barChartTitle">Method Comparison (MVTecAD, Det. AU-ROC)</h3>
-            <svg
-              id="barComparisonChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Bar chart comparing image-level AU-ROC across methods"
-            ></svg>
+        <div id="ablation" class="experiment-block">
+          <div class="section-head">
+            <h3>Ablation</h3>
+            <p>
+              Additional ablation to support design choices of InvAD.
+            </p>
+          </div>
+          <div class="chart-grid">
+            <figure class="chart-card">
+              <h3>Diffusion Architecture Ablation (MVTecAD)</h3>
+              <svg
+                id="diffusionArchAblationChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Bar chart for diffusion architecture ablation"
+              ></svg>
+              <figcaption>
+                Architecture ablation under the same InvAD framework across MLP,
+                UNet, DiT-base, and DiT-gigant backbones.
+              </figcaption>
+            </figure>
+            <figure class="chart-card">
+              <h3>Scoring Scheme Ablation (MVTecAD, AU-ROC)</h3>
+              <svg
+                id="scoringAblationChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Line chart for scoring ablation under different inversion steps"
+              ></svg>
+              <figcaption>
+                Combined NLL + Diff scoring remains most robust across
+                diffusion step settings.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="ablation-note">
+            <p>
+              Our framework consists of two core components: feature space
+              diffusion modeling (FDM) and inversion-based inference. To
+              validate each contribution, we compare four settings (A1-A4) on
+              multi-class MVTecAD.
+            </p>
+            <table class="metric-table" aria-label="Ablation setting definitions">
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>FDM</th>
+                  <th>Single-step Inv.</th>
+                  <th>Multi-step Inv.</th>
+                  <th>mAD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A1</td>
+                  <td>✓</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>57.3</td>
+                </tr>
+                <tr>
+                  <td>A2</td>
+                  <td>-</td>
+                  <td>✓</td>
+                  <td>-</td>
+                  <td>44.9</td>
+                </tr>
+                <tr>
+                  <td>A3</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>-</td>
+                  <td>71.0</td>
+                </tr>
+                <tr class="ours-row">
+                  <td>A4 (Ours)</td>
+                  <td>✓</td>
+                  <td>-</td>
+                  <td>✓</td>
+                  <td>83.7</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              A1 (without inversion) drops clearly versus A4, highlighting the
+              importance of inversion. A2 (without FDM, i.e., pixel-space
+              diffusion) with single-step inversion further degrades accuracy.
+              Combining FDM and single-step inversion (A3) improves
+              performance, and replacing it with multi-step inversion (A4)
+              yields the best result.
+            </p>
+          </div>
+        </div>
+        <div id="localization" class="experiment-block">
+          <div class="section-head">
+            <h3>Localization</h3>
+            <p>
+              Qualitative pixel-level anomaly localization comparison on
+              MVTecAD between InvAD and prior diffusion-based baselines.
+            </p>
+          </div>
+          <figure class="localization-figure">
+            <img
+              src="/assets/figs/fafa-2_hd.png?v=20260227m"
+              data-fallback-src="/assets/figs/fafa-2.png?v=20260227m"
+              onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
+              alt="Qualitative localization results comparing InvAD and other methods"
+            />
             <figcaption>
-              InvAD reaches the highest image-level AU-ROC among compared methods.
+              InvAD yields sharper anomaly regions and fewer false positives in
+              challenging defect localization scenarios.
             </figcaption>
           </figure>
-          <figure class="chart-card">
-            <h3 id="scatterChartTitle">Speed-Accuracy Trade-off (MVTecAD)</h3>
-            <svg
-              id="speedScatterChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Scatter chart for speed and accuracy trade-off"
-            ></svg>
-            <figcaption>
-              Re-generated speed-accuracy frontier using website-native visual
-              style and consistent color palette.
-            </figcaption>
-          </figure>
-          <figure class="chart-card span-two">
-            <h3>Speed-Accuracy vs Conventional Diffusion-AD Methods</h3>
-            <svg
-              id="conventionalSpeedScatterChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Scatter chart for speed and accuracy comparison with conventional diffusion AD methods"
-            ></svg>
-            <figcaption>
-              Comparison against conventional diffusion-AD methods with InvAD
-              highlighted as the best practical speed-accuracy trade-off point.
-            </figcaption>
-          </figure>
         </div>
-      </section>
-
-      <section id="ablation" class="content-section reveal">
-        <div class="section-head">
-          <h2>Ablation</h2>
-          <p>
-            Additional ablation results in the same visual format to support
-            design choices of InvAD.
-          </p>
-        </div>
-        <div class="chart-grid">
-          <figure class="chart-card">
-            <h3>Diffusion Architecture Ablation (MVTecAD)</h3>
-            <svg
-              id="diffusionArchAblationChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Bar chart for diffusion architecture ablation"
-            ></svg>
-            <figcaption>
-              Architecture ablation under the same InvAD framework across MLP,
-              UNet, DiT-base, and DiT-gigant backbones.
-            </figcaption>
-          </figure>
-          <figure class="chart-card">
-            <h3>Scoring Scheme Ablation (MVTecAD, AU-ROC)</h3>
-            <svg
-              id="scoringAblationChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Line chart for scoring ablation under different inversion steps"
-            ></svg>
-            <figcaption>
-              Combined NLL + Diff scoring remains most robust across diffusion
-              step settings.
-            </figcaption>
-          </figure>
-        </div>
-        <div class="ablation-note">
-          <p>
-            Our framework consists of two core components: feature space
-            diffusion modeling (FDM) and inversion-based inference. To validate
-            each contribution, we compare four settings (A1-A4) on multi-class
-            MVTecAD.
-          </p>
-          <table class="metric-table" aria-label="Ablation setting definitions">
-            <thead>
-              <tr>
-                <th>Setting</th>
-                <th>FDM</th>
-                <th>Single-step Inv.</th>
-                <th>Multi-step Inv.</th>
-                <th>mAD</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>A1</td>
-                <td>✓</td>
-                <td>-</td>
-                <td>-</td>
-                <td>57.3</td>
-              </tr>
-              <tr>
-                <td>A2</td>
-                <td>-</td>
-                <td>✓</td>
-                <td>-</td>
-                <td>44.9</td>
-              </tr>
-              <tr>
-                <td>A3</td>
-                <td>✓</td>
-                <td>✓</td>
-                <td>-</td>
-                <td>71.0</td>
-              </tr>
-              <tr class="ours-row">
-                <td>A4 (Ours)</td>
-                <td>✓</td>
-                <td>-</td>
-                <td>✓</td>
-                <td>83.7</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>
-            A1 (without inversion) drops clearly versus A4, highlighting the
-            importance of inversion. A2 (without FDM, i.e., pixel-space
-            diffusion) with single-step inversion further degrades accuracy.
-            Combining FDM and single-step inversion (A3) improves performance,
-            and replacing it with multi-step inversion (A4) yields the best
-            result.
-          </p>
-        </div>
-      </section>
-
-      <section id="localization" class="content-section reveal">
-        <div class="section-head">
-          <h2>Localization Results</h2>
-          <p>
-            Qualitative pixel-level anomaly localization comparison on MVTecAD
-            between InvAD and prior diffusion-based baselines.
-          </p>
-        </div>
-        <figure class="localization-figure">
-          <img
-            src="/assets/figs/fafa-2_hd.png?v=20260227k"
-            data-fallback-src="/assets/figs/fafa-2.png?v=20260227k"
-            onerror="this.onerror=null;this.src=this.dataset.fallbackSrc;"
-            alt="Qualitative localization results comparing InvAD and other methods"
-          />
-          <figcaption>
-            InvAD yields sharper anomaly regions and fewer false positives in
-            challenging defect localization scenarios.
-          </figcaption>
-        </figure>
-      </section>
-
-      <section id="generalization" class="content-section reveal">
-        <div class="section-head">
-          <h2>Plug-and-Play Generalization</h2>
-          <p>
-            InvAD can be inserted into other diffusion-based AD pipelines at
-            inference time and consistently improves both accuracy and speed.
-          </p>
-        </div>
-        <div class="chart-grid">
-          <figure class="chart-card span-two">
-            <h3>Generalizability on MVTecAD (Det./Loc./FPS)</h3>
-            <svg
-              id="generalizationChart"
-              class="result-chart"
-              viewBox="0 0 860 420"
-              role="img"
-              aria-label="Generalization chart with baseline and InvAD-augmented methods"
-            ></svg>
-            <figcaption>
-              InvAD delivers clear gains when integrated into DiAD and MDM,
-              including dramatic FPS acceleration.
-            </figcaption>
-          </figure>
+        <div id="generalization" class="experiment-block">
+          <div class="section-head">
+            <h3>Plug-and-Play Generalization</h3>
+            <p>
+              InvAD can be inserted into other diffusion-based AD pipelines at
+              inference time and consistently improves both accuracy and speed.
+            </p>
+          </div>
+          <div class="chart-grid">
+            <figure class="chart-card span-two">
+              <h3>Generalizability on MVTecAD (Det./Loc./FPS)</h3>
+              <svg
+                id="generalizationChart"
+                class="result-chart"
+                viewBox="0 0 860 420"
+                role="img"
+                aria-label="Generalization chart with baseline and InvAD-augmented methods"
+              ></svg>
+              <figcaption>
+                InvAD delivers clear gains when integrated into DiAD and MDM,
+                including dramatic FPS acceleration.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </section>
 
@@ -517,6 +678,6 @@
       </p>
     </footer>
 
-    <script src="/script.js?v=20260227k"></script>
+    <script src="/script.js?v=20260227m"></script>
   </body>
 </html>

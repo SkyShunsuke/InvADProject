@@ -1,4 +1,4 @@
-const ASSET_VERSION = "20260227k";
+const ASSET_VERSION = "20260227m";
 
 function assetPath(path) {
   return `${path}?v=${ASSET_VERSION}`;

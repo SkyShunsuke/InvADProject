@@ -323,6 +323,104 @@ h1 span {
   max-width: 44ch;
 }
 
+.intro-layout {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+.intro-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(8, 27, 36, 0.78);
+}
+
+.intro-card h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.intro-list {
+  margin: 0.42rem 0 0;
+  padding-left: 1.05rem;
+  color: var(--muted);
+}
+
+.intro-list li {
+  margin: 0.32rem 0;
+}
+
+.intro-figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.85rem;
+  background: rgba(8, 27, 36, 0.78);
+}
+
+.intro-figure img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.intro-figure figcaption {
+  margin-top: 0.65rem;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.intro-table-card {
+  margin-top: 0.9rem;
+}
+
+.intro-table-wrap {
+  margin-top: 0.5rem;
+  overflow-x: auto;
+}
+
+.intro-table th,
+.intro-table td {
+  white-space: nowrap;
+}
+
+.intro-note {
+  margin: 0.55rem 0 0;
+  font-size: 0.88rem;
+}
+
+.experiment-block {
+  margin-top: 1.05rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(8, 27, 36, 0.62);
+}
+
+.experiment-block .section-head {
+  margin-bottom: 0.7rem;
+}
+
+.experiment-block .section-head h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.7vw, 1.32rem);
+}
+
+.experiment-block .section-head p {
+  max-width: 58ch;
+}
+
+.experiment-block .chart-grid {
+  margin-top: 0.7rem;
+}
+
+.experiment-block .ablation-note {
+  margin-top: 0.75rem;
+}
+
 .switch-row {
   margin-bottom: 0.9rem;
   display: flex;
@@ -617,6 +715,10 @@ code {
 
   .chart-card.span-two {
     grid-column: auto;
+  }
+
+  .intro-layout {
+    grid-template-columns: 1fr;
   }
 
 }
