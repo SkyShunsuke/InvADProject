@@ -1,4 +1,4 @@
-const ASSET_VERSION = "20260227m";
+const ASSET_VERSION = "20260227n";
 
 function assetPath(path) {
   return `${path}?v=${ASSET_VERSION}`;
@@ -1399,6 +1399,3 @@ for (const button of benchmarkButtons) {
 
 setBenchmark(currentBenchmark);
 drawConventionalSpeedScatterChart();
-drawDiffusionArchAblationChart();
-drawScoringAblationChart();
-drawGeneralizationChart();

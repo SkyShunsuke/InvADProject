@@ -323,14 +323,8 @@ h1 span {
   max-width: 44ch;
 }
 
-.intro-layout {
-  margin-top: 0.9rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 1fr);
-  gap: 0.9rem;
-}
-
 .intro-card {
+  margin-top: 0.9rem;
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 1rem;
@@ -350,27 +344,6 @@ h1 span {
 
 .intro-list li {
   margin: 0.32rem 0;
-}
-
-.intro-figure {
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 0.85rem;
-  background: rgba(8, 27, 36, 0.78);
-}
-
-.intro-figure img {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-.intro-figure figcaption {
-  margin-top: 0.65rem;
-  color: var(--muted);
-  font-size: 0.87rem;
 }
 
 .intro-table-card {
@@ -715,10 +688,6 @@ code {
 
   .chart-card.span-two {
     grid-column: auto;
-  }
-
-  .intro-layout {
-    grid-template-columns: 1fr;
   }
 
 }
